@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('assignment_documents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('assignment_id')->constrained('assignments')->onDelete('cascade');
+            $table->string('file_url');
             $table->timestamps();
         });
     }
