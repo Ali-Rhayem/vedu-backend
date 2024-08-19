@@ -13,4 +13,9 @@ class LiveCodingSession extends Model
         'editor_state',
         'access_control',
     ];
+
+    protected $casts = [
+        'editor_state' => 'array', 
+        'access_control' => 'array',
+    ];
 }
