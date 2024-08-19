@@ -19,4 +19,10 @@ class Assignment extends Model
     {
         return $this->hasMany(AssignmentDocument::class);
     }
+
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
 }
