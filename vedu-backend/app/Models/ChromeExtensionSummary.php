@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ChromeExtensionSummary extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'chat_id',
+        'summary',
+        'generated_at',
+    ];
+
 }
