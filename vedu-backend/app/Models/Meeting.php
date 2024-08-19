@@ -11,4 +11,9 @@ class Meeting extends Model
     protected $fillable = [
         'course_id', 'title', 'start_time', 'end_time', 'meeting_url'
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
