@@ -52,4 +52,10 @@ class User extends Authenticatable
         'phone_number' => 'string',
         'bio' => 'string',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'owner_id');
+    }
+
 }
