@@ -9,4 +9,10 @@ class Chat extends Model
 {
     use HasFactory;
     protected $fillable = ['course_id', 'user_id', 'message'];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
 }
