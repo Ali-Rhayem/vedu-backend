@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('live_coding_sessions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('meeting_id')->constrained('meetings')->onDelete('cascade');
+            $table->json('editor_state')->nullable();
+            $table->json('access_control')->nullable();
             $table->timestamps();
         });
     }
