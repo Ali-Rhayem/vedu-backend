@@ -18,4 +18,9 @@ class LiveCodingSession extends Model
         'editor_state' => 'array', 
         'access_control' => 'array',
     ];
+
+    public function meeting()
+    {
+        return $this->belongsTo(Meeting::class);
+    }
 }
