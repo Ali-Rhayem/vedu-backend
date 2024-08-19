@@ -14,4 +14,9 @@ class Assignment extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function documents()
+    {
+        return $this->hasMany(AssignmentDocument::class);
+    }
 }
