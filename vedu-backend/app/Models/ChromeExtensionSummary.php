@@ -14,4 +14,8 @@ class ChromeExtensionSummary extends Model
         'generated_at',
     ];
 
+    public function chat()
+    {
+        return $this->belongsTo(Chat::class);
+    }
 }
