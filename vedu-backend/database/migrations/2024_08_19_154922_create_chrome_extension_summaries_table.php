@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('chrome_extension_summaries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('chat_id')->constrained('chats')->onDelete('cascade');
+            $table->text('summary');
+            $table->timestamp('generated_at')->useCurrent();
             $table->timestamps();
         });
     }
