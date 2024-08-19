@@ -9,4 +9,9 @@ class AssignmentDocument extends Model
 {
     use HasFactory;
     protected $fillable = ['assignment_id', 'file_url'];
+
+    public function assignment()
+    {
+        return $this->belongsTo(Assignment::class);
+    }
 }
