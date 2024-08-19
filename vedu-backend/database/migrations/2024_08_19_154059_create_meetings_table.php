@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->string('title');
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
+            $table->string('meeting_url');
             $table->timestamps();
         });
     }
