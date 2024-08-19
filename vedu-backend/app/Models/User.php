@@ -45,7 +45,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        // Add casting if necessary for new fields
         'country' => 'string',
         'city' => 'string',
         'code' => 'string',
@@ -56,6 +55,11 @@ class User extends Authenticatable
     public function courses()
     {
         return $this->hasMany(Course::class, 'owner_id');
+    }
+
+    public function instructorCourses()
+    {
+        return $this->belongsToMany(Course::class, 'course_instructors');
     }
 
 }
