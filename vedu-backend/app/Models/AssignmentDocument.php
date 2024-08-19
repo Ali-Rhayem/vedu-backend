@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class AssignmentDocument extends Model
 {
     use HasFactory;
+    protected $fillable = ['assignment_id', 'file_url'];
 }
