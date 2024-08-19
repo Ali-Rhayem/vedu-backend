@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +20,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'country',       
+        'city',          
+        'code',          
+        'phone_number',  
+        'bio',           
     ];
 
     /**
@@ -41,5 +45,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        // Add casting if necessary for new fields
+        'country' => 'string',
+        'city' => 'string',
+        'code' => 'string',
+        'phone_number' => 'string',
+        'bio' => 'string',
     ];
 }
