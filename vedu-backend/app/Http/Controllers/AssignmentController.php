@@ -14,6 +14,10 @@ class AssignmentController extends Controller
     public function index()
     {
         //
+        $assignment = Assignment::all();
+        return response()->json([
+            "courses" => $assignment
+        ],200);
     }
 
     /**
