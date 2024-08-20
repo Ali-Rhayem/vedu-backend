@@ -33,7 +33,11 @@ class AssignmentController extends Controller
      */
     public function store(StoreAssignmentRequest $request)
     {
-        //
+        $assignment = Assignment::create($request->validated());
+        return response()->json([
+            "message" => "Assignment created successfully.",
+            "assignment" => $assignment
+        ], 201);
     }
 
     /**
