@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AssignmentDocumentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -43,4 +44,12 @@ Route::prefix('assignments')->controller(AssignmentController::class)->group(fun
     Route::get('{assignment}', 'show');
     Route::put('{assignment}', 'update');
     Route::delete('{assignment}', 'destroy');
+});
+
+Route::prefix('assignment-documents')->group(function () {
+    Route::get('/', [AssignmentDocumentController::class, 'index']); 
+    Route::post('/', [AssignmentDocumentController::class, 'store']); 
+    Route::get('{assignmentDocument}', [AssignmentDocumentController::class, 'show']);
+    Route::post('{assignmentDocument}', [AssignmentDocumentController::class, 'update']); 
+    Route::delete('{assignmentDocument}', [AssignmentDocumentController::class, 'destroy']); 
 });
