@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AssignmentDocument;
 use App\Http\Requests\StoreAssignmentDocumentRequest;
 use App\Http\Requests\UpdateAssignmentDocumentRequest;
+use Illuminate\Support\Facades\Storage;
 
 class AssignmentDocumentController extends Controller
 {
@@ -68,7 +69,21 @@ class AssignmentDocumentController extends Controller
      */
     public function update(UpdateAssignmentDocumentRequest $request, AssignmentDocument $assignmentDocument)
     {
-        //
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filePath = $file->store('assignment_documents', 'public');
+
+            if ($assignmentDocument->file_url && Storage::disk('public')->exists($assignmentDocument->file_url)) {
+                Storage::disk('public')->delete($assignmentDocument->file_url);
+            }
+
+            $assignmentDocument->file_url = $filePath;
+            $assignmentDocument->save();
+
+            return response()->json(['message' => 'Document updated successfully', 'document' => $assignmentDocument]);
+        }
+
+        return response()->json(['error' => 'No file uploaded'], 400);
     }
 
     /**
