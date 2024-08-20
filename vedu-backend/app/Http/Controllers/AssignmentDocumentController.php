@@ -30,7 +30,20 @@ class AssignmentDocumentController extends Controller
      */
     public function store(StoreAssignmentDocumentRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('assignment_documents', 'public');
+
+            $document = AssignmentDocument::create([
+                'assignment_id' => $validated['assignment_id'],
+                'file_url' => $filePath,
+            ]);
+
+            return response()->json(['message' => 'Document uploaded successfully', 'document' => $document], 201);
+        }
+
+        return response()->json(['error' => 'No file uploaded'], 400);
     }
 
     /**
