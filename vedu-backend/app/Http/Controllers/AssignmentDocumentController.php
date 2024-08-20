@@ -51,8 +51,9 @@ class AssignmentDocumentController extends Controller
      */
     public function show(AssignmentDocument $assignmentDocument)
     {
-        //
+        return response()->json($assignmentDocument);
     }
+
 
     /**
      * Show the form for editing the specified resource.
