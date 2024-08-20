@@ -18,13 +18,6 @@ class AssignmentDocumentController extends Controller
         return response()->json($documents);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -55,14 +48,6 @@ class AssignmentDocumentController extends Controller
         return response()->json($assignmentDocument);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AssignmentDocument $assignmentDocument)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
