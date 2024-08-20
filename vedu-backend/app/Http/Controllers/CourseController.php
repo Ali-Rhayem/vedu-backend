@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
+use GuzzleHttp\Psr7\Request;
 
 class CourseController extends Controller
 {
@@ -13,7 +14,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return response()->json([
+            "courses" => $courses
+        ],200);
     }
 
     /**
@@ -29,7 +33,10 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+        $course = Course::create($request->validated());
+        return response()->json([
+            "course" => $course
+        ],201);
     }
 
     /**
