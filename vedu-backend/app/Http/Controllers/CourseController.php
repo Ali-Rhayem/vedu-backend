@@ -64,6 +64,10 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course)
     {
         //
+        $course->update($request->validated());
+        return response()->json([
+            "course" => $course
+        ],200);
     }
 
     /**
