@@ -23,6 +23,10 @@ class StoreAssignmentRequest extends FormRequest
     {
         return [
             //
+            'course_id' => ['required', 'exists:courses,id'], 
+            'title' => ['required', 'string', 'max:255'], 
+            'description' => ['required', 'string'],
+            'due_date' => ['required', 'date', 'after_or_equal:today'], 
         ];
     }
 }

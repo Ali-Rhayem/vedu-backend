@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -43,4 +44,15 @@ Route::group([
     Route::get('{course}',[CourseController::class ,'show']);
     Route::put('{course}',[CourseController::class ,'update']);
     Route::delete('{course}',[CourseController::class ,'destroy']);
+});
+
+Route::group([
+    'prefix' => 'assignments'
+], function ($router) {
+
+    Route::get('', [AssignmentController::class, 'index']);
+    Route::post('', [AssignmentController::class, 'store']);
+    Route::get('{assignment}', [AssignmentController::class, 'show']);
+    Route::put('{assignment}', [AssignmentController::class, 'update']);
+    Route::delete('{assignment}', [AssignmentController::class, 'destroy']);
 });

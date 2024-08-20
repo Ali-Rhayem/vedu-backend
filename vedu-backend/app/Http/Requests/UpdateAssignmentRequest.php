@@ -11,7 +11,7 @@ class UpdateAssignmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,11 @@ class UpdateAssignmentRequest extends FormRequest
     {
         return [
             //
+            'course_id' => ['sometimes', 'exists:courses,id'],
+            'title' => ['sometimes', 'string', 'max:255'], 
+            'description' => ['sometimes', 'string'], 
+            'due_date' => ['sometimes', 'date', 'after_or_equal:today'], 
+
         ];
     }
 }
