@@ -21,38 +21,26 @@ Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group([
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
-
-    Route::post('login',[AuthController::class ,'login']);
-    Route::post('logout',[AuthController::class,'logout']);
-    Route::post('refresh', [AuthController::class,'refresh']);
-    Route::post('me', [AuthController::class,'me']);
-
+Route::prefix('auth')->controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
 });
 
-Route::group([
-    'prefix' => 'courses'
-], function ($router) {
-
-    Route::get('',[CourseController::class ,'index']);
-    Route::post('',[CourseController::class ,'store']);
-    Route::get('{course}',[CourseController::class ,'show']);
-    Route::put('{course}',[CourseController::class ,'update']);
-    Route::delete('{course}',[CourseController::class ,'destroy']);
+Route::prefix('courses')->controller(CourseController::class)->group(function () {
+    Route::get('', 'index');
+    Route::post('', 'store');
+    Route::get('{course}', 'show');
+    Route::put('{course}', 'update');
+    Route::delete('{course}', 'destroy');
 });
 
-Route::group([
-    'prefix' => 'assignments'
-], function ($router) {
-
-    Route::get('', [AssignmentController::class, 'index']);
-    Route::post('', [AssignmentController::class, 'store']);
-    Route::get('{assignment}', [AssignmentController::class, 'show']);
-    Route::put('{assignment}', [AssignmentController::class, 'update']);
-    Route::delete('{assignment}', [AssignmentController::class, 'destroy']);
+Route::prefix('assignments')->controller(AssignmentController::class)->group(function () {
+    Route::get('', 'index');
+    Route::post('', 'store');
+    Route::get('{assignment}', 'show');
+    Route::put('{assignment}', 'update');
+    Route::delete('{assignment}', 'destroy');
 });
