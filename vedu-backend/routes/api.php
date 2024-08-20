@@ -40,7 +40,6 @@ Route::group([
 
     Route::get('',[CourseController::class ,'index']);
     Route::post('',[CourseController::class ,'store']);
-    Route::post('create',[CourseController::class ,'createCourse']);
     Route::get('{course}',[CourseController::class ,'show']);
     Route::put('{course}',[CourseController::class ,'update']);
     Route::delete('{course}',[CourseController::class ,'destroy']);
