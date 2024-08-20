@@ -13,7 +13,8 @@ class AssignmentDocumentController extends Controller
      */
     public function index()
     {
-        //
+        $documents = AssignmentDocument::all();
+        return response()->json($documents);
     }
 
     /**
