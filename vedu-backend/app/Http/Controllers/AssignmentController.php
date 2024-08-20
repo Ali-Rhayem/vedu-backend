@@ -75,6 +75,9 @@ class AssignmentController extends Controller
      */
     public function destroy(Assignment $assignment)
     {
-        //
+        $assignment->delete();
+        return response()->json([
+            "message" => "Assignment deleted successfully."
+        ], 200);
     }
 }
