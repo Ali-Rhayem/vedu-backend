@@ -91,6 +91,9 @@ class AssignmentDocumentController extends Controller
      */
     public function destroy(AssignmentDocument $assignmentDocument)
     {
-        //
+        Storage::disk('public')->delete($assignmentDocument->file_url);
+        $assignmentDocument->delete();
+
+        return response()->json(['message' => 'Document deleted successfully']);
     }
 }
