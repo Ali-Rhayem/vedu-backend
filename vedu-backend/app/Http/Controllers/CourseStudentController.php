@@ -70,6 +70,10 @@ class CourseStudentController extends Controller
     public function update(UpdateCourseStudentRequest $request, CourseStudent $courseStudent)
     {
         //
+        $courseStudent->update($request->validated());
+        return response()->json([
+            "course_instructor" => $courseStudent
+        ],200);
     }
 
     /**
