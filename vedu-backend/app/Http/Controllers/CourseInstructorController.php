@@ -84,4 +84,10 @@ class CourseInstructorController extends Controller
         $courseInstructor->delete();
         return response()->json(['message' => 'Course Instructor deleted successfully']);
     }
+
+    public function getCourseInstructors($course_id)
+    {
+        $courseInstructors = CourseInstructor::where('course_id', $course_id)->get();
+        return response()->json($courseInstructors);
+    }
 }
