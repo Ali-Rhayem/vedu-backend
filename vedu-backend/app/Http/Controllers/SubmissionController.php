@@ -13,7 +13,8 @@ class SubmissionController extends Controller
      */
     public function index()
     {
-        //
+        $submissions = Submission::all();
+        return response()->json($submissions);
     }
 
     /**
