@@ -49,21 +49,22 @@ Route::prefix('assignments')->controller(AssignmentController::class)->group(fun
 });
 
 Route::prefix('assignment-documents')->controller(AssignmentDocumentController::class)->group(function () {
-    Route::get('/',  'index'); 
-    Route::post('/',  'store'); 
+    Route::get('/',  'index');
+    Route::post('/',  'store');
     Route::get('{assignmentDocument}',  'show');
-    Route::post('{assignmentDocument}',  'update'); 
-    Route::delete('{assignmentDocument}',  'destroy'); 
+    Route::post('{assignmentDocument}',  'update');
+    Route::delete('{assignmentDocument}',  'destroy');
 });
 
 Route::prefix('course-instructor')->controller(CourseInstructorController::class)->group(function () {
-    Route::get('/', 'index'); 
-    Route::post('/', 'store'); 
+    Route::get('/', 'index');
+    Route::post('/', 'store');
     Route::get('{courseInstructor}', 'show');
-    Route::post('{courseInstructor}', 'update'); 
-    Route::delete('{courseInstructor}', 'destroy'); 
+    Route::post('{courseInstructor}', 'update');
+    Route::delete('{courseInstructor}', 'destroy');
 });
 
-Route::prefix('course-student')->controller(CourseStudentController::class)->group(function(){
-Route::get('/', 'index');
+Route::prefix('course-student')->controller(CourseStudentController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
 });
