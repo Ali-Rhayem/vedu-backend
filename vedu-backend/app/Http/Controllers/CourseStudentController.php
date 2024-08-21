@@ -86,4 +86,10 @@ class CourseStudentController extends Controller
         $courseStudent->delete();
         return response()->json(['message' => 'student deleted successfully']);
     }
+
+    public function getCourseStudents($course_id)
+    {
+        $courseStudents = CourseStudent::where('course_id', $course_id)->get();
+        return response()->json($courseStudents);
+    }
 }
