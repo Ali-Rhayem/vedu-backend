@@ -53,7 +53,7 @@ class CourseStudentController extends Controller
      */
     public function show(CourseStudent $courseStudent)
     {
-        //
+        return response()->json($courseStudent);
     }
 
     /**
