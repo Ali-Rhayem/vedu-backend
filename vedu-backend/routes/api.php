@@ -65,13 +65,6 @@ Route::prefix('course-instructor')->controller(CourseInstructorController::class
     Route::delete('{courseInstructor}', 'destroy');
 });
 
-Route::prefix('course-student')->controller(CourseStudentController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('{courseStudent}', 'show');
-    Route::post('{courseStudent}', 'update');
-    Route::delete('{courseStudent}', 'destroy');
-});
-
+Route::apiResource('course-student', CourseStudentController::class);
 
 Route::apiResource('submission', SubmissionController::class);
