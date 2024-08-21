@@ -14,6 +14,8 @@ class CourseStudentController extends Controller
     public function index()
     {
         //
+        $courseStudents = CourseStudent::all();
+        return response()->json($courseStudents);
     }
 
     /**
