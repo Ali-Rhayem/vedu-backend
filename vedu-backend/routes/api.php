@@ -57,13 +57,7 @@ Route::prefix('assignment-documents')->controller(AssignmentDocumentController::
     Route::delete('{assignmentDocument}',  'destroy');
 });
 
-Route::prefix('course-instructor')->controller(CourseInstructorController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('{courseInstructor}', 'show');
-    Route::post('{courseInstructor}', 'update');
-    Route::delete('{courseInstructor}', 'destroy');
-});
+Route::apiResource('course-instructor', CourseInstructorController::class);
 
 Route::apiResource('course-student', CourseStudentController::class);
 
