@@ -32,6 +32,20 @@ class CourseStudentController extends Controller
     public function store(StoreCourseStudentRequest $request)
     {
         //
+        $existingStudent = CourseStudent::where('course_id', $request->course_id)
+            ->where('student_id', $request->student_id)
+            ->first();
+
+        if ($existingStudent) {
+            return response()->json(['message' => 'Student is already assigned to this course'], 409);
+        }
+
+        $courseStudent = CourseStudent::create($request->validated());
+
+        return response()->json([
+            'message' => 'Course Student created successfully',
+            'course_instructor' => $courseStudent
+        ], 201);
     }
 
     /**
