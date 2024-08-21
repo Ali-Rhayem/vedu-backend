@@ -73,6 +73,7 @@ Route::prefix('course-student')->controller(CourseStudentController::class)->gro
     Route::delete('{courseStudent}', 'destroy');
 });
 
-Route::prefix('submission')->controller(SubmissionController::class)->group(function(){
-Route::get('/', 'index');
+Route::prefix('submission')->controller(SubmissionController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
 });
