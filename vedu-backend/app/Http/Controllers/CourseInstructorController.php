@@ -68,7 +68,12 @@ class CourseInstructorController extends Controller
     public function update(UpdateCourseInstructorRequest $request, CourseInstructor $courseInstructor)
     {
         //
+        $courseInstructor->update($request->validated());
+        return response()->json([
+            "course_instructor" => $courseInstructor
+        ],200);
     }
+
 
     /**
      * Remove the specified resource from storage.
