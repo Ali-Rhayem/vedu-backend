@@ -60,4 +60,5 @@ Route::prefix('course-instructor')->group(function () {
     Route::post('/', [CourseInstructorController::class, 'store']); 
     Route::get('{courseInstructor}', [CourseInstructorController::class, 'show']);
     Route::post('{courseInstructor}', [CourseInstructorController::class, 'update']); 
+    Route::delete('{courseInstructor}', [CourseInstructorController::class, 'destroy']); 
 });
