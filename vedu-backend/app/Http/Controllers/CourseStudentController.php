@@ -82,5 +82,7 @@ class CourseStudentController extends Controller
     public function destroy(CourseStudent $courseStudent)
     {
         //
+        $courseStudent->delete();
+        return response()->json(['message' => 'Course student deleted successfully']);
     }
 }
