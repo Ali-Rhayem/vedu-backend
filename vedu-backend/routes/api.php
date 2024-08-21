@@ -33,13 +33,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::prefix('courses')->controller(CourseController::class)->group(function () {
-    Route::get('', 'index');
-    Route::post('', 'store');
-    Route::get('{course}', 'show');
-    Route::put('{course}', 'update');
-    Route::delete('{course}', 'destroy');
-});
+Route::apiResource('courses', CourseController::class);
 
 Route::apiResource('assignments', AssignmentController::class);
 
