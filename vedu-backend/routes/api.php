@@ -49,13 +49,7 @@ Route::prefix('assignments')->controller(AssignmentController::class)->group(fun
     Route::delete('{assignment}', 'destroy');
 });
 
-Route::prefix('assignment-documents')->controller(AssignmentDocumentController::class)->group(function () {
-    Route::get('/',  'index');
-    Route::post('/',  'store');
-    Route::get('{assignmentDocument}',  'show');
-    Route::post('{assignmentDocument}',  'update');
-    Route::delete('{assignmentDocument}',  'destroy');
-});
+Route::apiResource('assignment-documents', AssignmentDocumentController::class);
 
 Route::apiResource('course-instructor', CourseInstructorController::class);
 
