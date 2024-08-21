@@ -78,4 +78,5 @@ Route::prefix('submission')->controller(SubmissionController::class)->group(func
     Route::post('/', 'store');
     Route::get('{submission}', 'show');
     Route::post('{submission}', 'update');
+    Route::delete('{submission}', 'destroy');
 });
