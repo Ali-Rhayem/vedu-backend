@@ -76,4 +76,5 @@ Route::prefix('course-student')->controller(CourseStudentController::class)->gro
 Route::prefix('submission')->controller(SubmissionController::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::get('{submission}', 'show');
 });
