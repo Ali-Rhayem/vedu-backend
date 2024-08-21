@@ -81,5 +81,7 @@ class CourseInstructorController extends Controller
     public function destroy(CourseInstructor $courseInstructor)
     {
         //
+        $courseInstructor->delete();
+        return response()->json(['message' => 'Course Instructor deleted successfully']);
     }
 }
