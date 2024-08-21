@@ -13,7 +13,8 @@ class CourseInstructorController extends Controller
      */
     public function index()
     {
-        //
+        $courseInstructors = CourseInstructor::all();
+        return response()->json($courseInstructors);
     }
 
     /**
