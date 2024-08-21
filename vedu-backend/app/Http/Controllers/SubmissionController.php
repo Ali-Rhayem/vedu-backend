@@ -94,9 +94,14 @@ class SubmissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Submission $submission)
+    public function destroy($id)
     {
-        //
+        $submission = Submission::find($id);
+    
+        if (!$submission) {
+            return response()->json(['message' => 'No submission found'], 404);
+        }
+    
         if ($submission->file_url && Storage::disk('public')->exists($submission->file_url)) {
             Storage::disk('public')->delete($submission->file_url);
         }
@@ -105,4 +110,5 @@ class SubmissionController extends Controller
     
         return response()->json(['message' => 'Submission deleted successfully']);
     }
+    
 }
