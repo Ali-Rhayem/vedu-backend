@@ -53,7 +53,7 @@ class SubmissionController extends Controller
      */
     public function show(Submission $submission)
     {
-        //
+        return response()->json($submission);
     }
 
     /**
