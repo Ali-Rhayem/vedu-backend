@@ -97,5 +97,12 @@ class SubmissionController extends Controller
     public function destroy(Submission $submission)
     {
         //
+        if ($submission->file_url && Storage::disk('public')->exists($submission->file_url)) {
+            Storage::disk('public')->delete($submission->file_url);
+        }
+    
+        $submission->delete();
+    
+        return response()->json(['message' => 'Submission deleted successfully']);
     }
 }
