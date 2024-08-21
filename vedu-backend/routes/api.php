@@ -58,4 +58,5 @@ Route::prefix('assignment-documents')->group(function () {
 Route::prefix('course-instructor')->group(function () {
     Route::get('/', [CourseInstructorController::class, 'index']); 
     Route::post('/', [CourseInstructorController::class, 'store']); 
+    Route::get('{courseInstructor}', [CourseInstructorController::class, 'show']);
 });
