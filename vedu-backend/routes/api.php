@@ -46,3 +46,5 @@ Route::apiResource('course-student', CourseStudentController::class);
 Route::apiResource('submission', SubmissionController::class);
 
 Route::get('course-student/course/{course_id}/students', [CourseStudentController::class, 'getCourseStudents']);
+
+Route::get('course-instructor/course/{course_id}/instructors', [CourseInstructorController::class, 'getCourseInstructors']);
