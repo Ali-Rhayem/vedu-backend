@@ -43,7 +43,7 @@ class CourseStudentController extends Controller
         $courseStudent = CourseStudent::create($request->validated());
 
         return response()->json([
-            'message' => 'Course Student created successfully',
+            'message' => 'Student created successfully',
             'course_instructor' => $courseStudent
         ], 201);
     }
@@ -72,7 +72,7 @@ class CourseStudentController extends Controller
         //
         $courseStudent->update($request->validated());
         return response()->json([
-            'message' => 'Course Student updated successfully',
+            'message' => 'Student updated successfully',
             "course_instructor" => $courseStudent
         ],200);
     }
@@ -84,6 +84,6 @@ class CourseStudentController extends Controller
     {
         //
         $courseStudent->delete();
-        return response()->json(['message' => 'Course student deleted successfully']);
+        return response()->json(['message' => 'student deleted successfully']);
     }
 }
