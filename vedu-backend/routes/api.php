@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseInstructorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +53,8 @@ Route::prefix('assignment-documents')->group(function () {
     Route::get('{assignmentDocument}', [AssignmentDocumentController::class, 'show']);
     Route::post('{assignmentDocument}', [AssignmentDocumentController::class, 'update']); 
     Route::delete('{assignmentDocument}', [AssignmentDocumentController::class, 'destroy']); 
+});
+
+Route::prefix('course-instructor')->group(function () {
+    Route::get('/', [CourseInstructorController::class, 'index']); 
 });
