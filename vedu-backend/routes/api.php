@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseInstructorController;
+use App\Http\Controllers\CourseStudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,4 +62,8 @@ Route::prefix('course-instructor')->controller(CourseInstructorController::class
     Route::get('{courseInstructor}', 'show');
     Route::post('{courseInstructor}', 'update'); 
     Route::delete('{courseInstructor}', 'destroy'); 
+});
+
+Route::prefix('course-student')->controller(CourseStudentController::class)->group(function(){
+Route::get('/', 'index');
 });
