@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseInstructorController;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\SubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,4 +71,8 @@ Route::prefix('course-student')->controller(CourseStudentController::class)->gro
     Route::get('{courseStudent}', 'show');
     Route::post('{courseStudent}', 'update');
     Route::delete('{courseStudent}', 'destroy');
+});
+
+Route::prefix('submission')->controller(SubmissionController::class)->group(function(){
+Route::get('/', 'index');
 });
