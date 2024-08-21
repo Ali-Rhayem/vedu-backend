@@ -67,4 +67,5 @@ Route::prefix('course-instructor')->controller(CourseInstructorController::class
 Route::prefix('course-student')->controller(CourseStudentController::class)->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::get('{courseStudent}', 'show');
 });
