@@ -30,7 +30,20 @@ class CourseInstructorController extends Controller
      */
     public function store(StoreCourseInstructorRequest $request)
     {
-        //
+        $existingInstructor = CourseInstructor::where('course_id', $request->course_id)
+            ->where('instructor_id', $request->instructor_id)
+            ->first();
+    
+        if ($existingInstructor) {
+            return response()->json(['message' => 'Instructor is already assigned to this course'], 409);
+        }
+    
+        $courseInstructor = CourseInstructor::create($request->validated());
+    
+        return response()->json([
+            'message' => 'Course Instructor created successfully',
+            'course_instructor' => $courseInstructor
+        ], 201);
     }
 
     /**
