@@ -23,7 +23,7 @@ class StoreAssignmentDocumentRequest extends FormRequest
     {
         return [
             'assignment_id' => 'required|exists:assignments,id',
-            'file' => 'required|file|mimes:pdf,doc,docx,txt,png,jpg,jpeg,mp4,mkv,avi|max:2048',
+            'file' => 'required|file|mimes:pdf,doc,docx,txt,png,jpg,jpeg,mp4,mkv,avi',
         ];        
     }
 }
