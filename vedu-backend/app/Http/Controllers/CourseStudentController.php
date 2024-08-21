@@ -72,6 +72,7 @@ class CourseStudentController extends Controller
         //
         $courseStudent->update($request->validated());
         return response()->json([
+            'message' => 'Course Student updated successfully',
             "course_instructor" => $courseStudent
         ],200);
     }
