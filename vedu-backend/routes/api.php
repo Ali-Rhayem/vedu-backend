@@ -69,4 +69,5 @@ Route::prefix('course-student')->controller(CourseStudentController::class)->gro
     Route::post('/', 'store');
     Route::get('{courseStudent}', 'show');
     Route::post('{courseStudent}', 'update');
+    Route::delete('{courseStudent}', 'destroy');
 });
