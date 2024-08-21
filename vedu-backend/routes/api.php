@@ -73,10 +73,5 @@ Route::prefix('course-student')->controller(CourseStudentController::class)->gro
     Route::delete('{courseStudent}', 'destroy');
 });
 
-Route::prefix('submission')->controller(SubmissionController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::get('{submission}', 'show');
-    Route::post('{submission}', 'update');
-    Route::delete('{submission}', 'destroy');
-});
+
+Route::apiResource('submission', SubmissionController::class);
