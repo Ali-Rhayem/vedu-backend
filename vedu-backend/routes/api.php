@@ -55,10 +55,10 @@ Route::prefix('assignment-documents')->group(function () {
     Route::delete('{assignmentDocument}', [AssignmentDocumentController::class, 'destroy']); 
 });
 
-Route::prefix('course-instructor')->group(function () {
-    Route::get('/', [CourseInstructorController::class, 'index']); 
-    Route::post('/', [CourseInstructorController::class, 'store']); 
-    Route::get('{courseInstructor}', [CourseInstructorController::class, 'show']);
-    Route::post('{courseInstructor}', [CourseInstructorController::class, 'update']); 
-    Route::delete('{courseInstructor}', [CourseInstructorController::class, 'destroy']); 
+Route::prefix('course-instructor')->controller(CourseInstructorController::class)->group(function () {
+    Route::get('/', 'index'); 
+    Route::post('/', 'store'); 
+    Route::get('{courseInstructor}', 'show');
+    Route::post('{courseInstructor}', 'update'); 
+    Route::delete('{courseInstructor}', 'destroy'); 
 });
