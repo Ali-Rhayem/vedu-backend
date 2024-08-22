@@ -58,4 +58,5 @@ Route::prefix('messages')->group(function () {
     Route::post('/', [MessageController::class, 'store']);
     Route::get('/{chat_id}', [MessageController::class, 'index']);
     Route::get('/{message}', [MessageController::class, 'show']);
+    Route::put('/{message}', [MessageController::class, 'update']);
 });
