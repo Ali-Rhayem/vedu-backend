@@ -110,6 +110,7 @@ class ChromeExtensionSummaryController extends Controller
      */
     public function destroy(ChromeExtensionSummary $chromeExtensionSummary)
     {
-        //
+        $chromeExtensionSummary->delete();
+        return response()->json(['message' => 'Summary deleted successfully']);
     }
 }
