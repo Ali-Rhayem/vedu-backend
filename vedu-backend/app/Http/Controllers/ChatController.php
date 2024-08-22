@@ -68,7 +68,10 @@ class ChatController extends Controller
      */
     public function update(UpdateChatRequest $request, Chat $chat)
     {
-        //
+        $chat->update($request->validated());
+        return response()->json([
+            "Chat" => $chat
+        ], 200);
     }
 
     /**
