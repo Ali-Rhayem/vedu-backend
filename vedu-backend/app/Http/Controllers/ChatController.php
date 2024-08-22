@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatMessageSent;
 use App\Models\Chat;
 use App\Http\Requests\StoreChatRequest;
 use App\Http\Requests\UpdateChatRequest;
@@ -32,9 +33,18 @@ class ChatController extends Controller
      */
     public function store(StoreChatRequest $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'course_id' => 'nullable|exists:courses,id',
+            'sender_id' => 'required|exists:users,id',
+            'receiver_id' => 'nullable|exists:users,id',
+        ]);
 
+        $chat = Chat::create($validated);
+
+        broadcast(new ChatMessageSent($chat))->toOthers();
+
+        return response()->json($chat, 201);
+    }
     /**
      * Display the specified resource.
      */
