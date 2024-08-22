@@ -82,4 +82,11 @@ class ChatController extends Controller
         $chat->delete();
         return response()->json(['message' => 'Chat deleted successfully']);
     }
+
+    public function messages(Chat $chat)
+    {
+        return response()->json([
+            "messages" => $chat->messages
+        ]);
+    }
 }
