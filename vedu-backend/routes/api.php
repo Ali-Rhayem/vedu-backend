@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ChromeExtensionSummaryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseInstructorController;
 use App\Http\Controllers\CourseStudentController;
@@ -61,3 +62,5 @@ Route::prefix('messages')->group(function () {
     Route::put('/{message}', [MessageController::class, 'update']);
     Route::delete('/{message}', [MessageController::class, 'destroy']);
 });
+
+Route::post('/chats/{chat}/summary', [ChromeExtensionSummaryController::class, 'generateSummary']);
