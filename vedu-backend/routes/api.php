@@ -53,3 +53,7 @@ Route::get('course-instructor/course/{course_id}/instructors', [CourseInstructor
 
 Route::apiResource('chats', ChatController::class);
 Route::get('chats/{chat}/messages', [ChatController::class, 'messages']);
+
+Route::prefix('messages')->group(function () {
+    Route::post('/', [MessageController::class, 'store']);
+});
