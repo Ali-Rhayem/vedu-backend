@@ -21,10 +21,12 @@ class ChromeExtensionSummaryController extends Controller
     }
 
 
-    public function generateSummary(Chat $chat)
+    public function generateSummary(Chat $chat, MessageController $messageController)
     {
-        $messages = $chat->messages()->pluck('message')->toArray();
-        $chatContent = implode("\n", $messages);
+        $response = $messageController->index($chat->id);
+        $messages = json_decode($response->getContent(), true);
+
+        $chatContent = implode("\n", array_column($messages, 'message'));
 
         $openAIKey = env('OPENAI_API_KEY');
         $client = new \GuzzleHttp\Client();
@@ -62,6 +64,7 @@ class ChromeExtensionSummaryController extends Controller
             'summary' => $summaryRecord,
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

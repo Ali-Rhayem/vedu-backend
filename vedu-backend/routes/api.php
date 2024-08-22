@@ -12,6 +12,7 @@ use App\Http\Controllers\CourseInstructorController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SubmissionController;
+use App\Models\ChromeExtensionSummary;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,6 @@ Route::get('course-student/course/{course_id}/students', [CourseStudentControlle
 Route::get('course-instructor/course/{course_id}/instructors', [CourseInstructorController::class, 'getCourseInstructors']);
 
 Route::apiResource('chats', ChatController::class);
-Route::get('chats/{chat}/messages', [ChatController::class, 'messages']);
 
 Route::prefix('messages')->group(function () {
     Route::post('/', [MessageController::class, 'store']);
@@ -66,7 +66,7 @@ Route::prefix('messages')->group(function () {
 Route::post('/chats/{chat}/summary', [ChromeExtensionSummaryController::class, 'generateSummary']);
 
 Route::prefix('chrome-extension-summary')->group(function () {
-    Route::get('/{chat_id}', [MessageController::class, 'index']);
-    Route::get('/{message}', [MessageController::class, 'show']);
-    Route::delete('/{message}', [MessageController::class, 'destroy']);
+    Route::get('/{chat_id}', [ChromeExtensionSummary::class, 'index']);
+    Route::get('/{message}', [ChromeExtensionSummary::class, 'show']);
+    Route::delete('/{message}', [ChromeExtensionSummary::class, 'destroy']);
 });
