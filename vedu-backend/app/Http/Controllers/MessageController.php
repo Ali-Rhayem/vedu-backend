@@ -25,14 +25,12 @@ class MessageController extends Controller
     {
         $validated = $request->validated();
 
-        // Create the message
         $message = Message::create([
             'chat_id' => $validated['chat_id'],
             'sender_id' => $validated['sender_id'],
             'message' => $validated['message'],
         ]);
 
-        // Broadcast the message
         broadcast(new MessageSent($message))->toOthers();
 
         return response()->json($message, 201);
