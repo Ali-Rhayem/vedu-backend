@@ -46,13 +46,6 @@ class MessageController extends Controller
         return response()->json($message);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
