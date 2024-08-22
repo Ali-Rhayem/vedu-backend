@@ -5,9 +5,11 @@ use App\Http\Controllers\AssignmentDocumentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseInstructorController;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SubmissionController;
 
 /*
@@ -48,3 +50,5 @@ Route::apiResource('submission', SubmissionController::class);
 Route::get('course-student/course/{course_id}/students', [CourseStudentController::class, 'getCourseStudents']);
 
 Route::get('course-instructor/course/{course_id}/instructors', [CourseInstructorController::class, 'getCourseInstructors']);
+
+Route::apiResource('chats', ChatController::class);
