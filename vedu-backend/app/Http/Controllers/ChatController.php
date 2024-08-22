@@ -17,7 +17,7 @@ class ChatController extends Controller
         $chats = Chat::all();
         return response()->json([
             "Chats" => $chats
-        ],200);
+        ], 200);
     }
 
     /**
@@ -50,7 +50,9 @@ class ChatController extends Controller
      */
     public function show(Chat $chat)
     {
-        //
+        return response()->json([
+            "course" => $chat
+        ]);
     }
 
     /**
