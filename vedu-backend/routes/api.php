@@ -68,4 +68,5 @@ Route::post('/chats/{chat}/summary', [ChromeExtensionSummaryController::class, '
 Route::prefix('chrome-extension-summary')->group(function () {
     Route::get('/{chat_id}', [MessageController::class, 'index']);
     Route::get('/{message}', [MessageController::class, 'show']);
+    Route::delete('/{message}', [MessageController::class, 'destroy']);
 });
