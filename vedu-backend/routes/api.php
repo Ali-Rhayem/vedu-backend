@@ -64,3 +64,7 @@ Route::prefix('messages')->group(function () {
 });
 
 Route::post('/chats/{chat}/summary', [ChromeExtensionSummaryController::class, 'generateSummary']);
+
+Route::prefix('chrome-extension-summary')->group(function () {
+    Route::get('/{chat_id}', [MessageController::class, 'index']);
+});
