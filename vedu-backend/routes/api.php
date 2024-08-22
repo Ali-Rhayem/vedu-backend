@@ -52,3 +52,4 @@ Route::get('course-student/course/{course_id}/students', [CourseStudentControlle
 Route::get('course-instructor/course/{course_id}/instructors', [CourseInstructorController::class, 'getCourseInstructors']);
 
 Route::apiResource('chats', ChatController::class);
+Route::get('chats/{chat}/messages', [ChatController::class, 'messages']);
