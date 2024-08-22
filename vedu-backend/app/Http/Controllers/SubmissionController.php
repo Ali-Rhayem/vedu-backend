@@ -18,13 +18,6 @@ class SubmissionController extends Controller
         return response()->json($submissions);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
