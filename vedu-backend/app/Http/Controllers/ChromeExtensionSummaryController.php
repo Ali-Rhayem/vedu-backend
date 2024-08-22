@@ -13,7 +13,10 @@ class ChromeExtensionSummaryController extends Controller
      */
     public function index()
     {
-        //
+        $summaries = ChromeExtensionSummary::all();
+        return response()->json([
+            "summaries" => $summaries
+        ], 200);
     }
 
     /**
