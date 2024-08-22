@@ -84,7 +84,9 @@ class ChromeExtensionSummaryController extends Controller
      */
     public function show(ChromeExtensionSummary $chromeExtensionSummary)
     {
-        //
+        return response()->json([
+            "summary" => $chromeExtensionSummary
+        ]);
     }
 
     /**
