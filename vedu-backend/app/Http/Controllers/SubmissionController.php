@@ -50,13 +50,6 @@ class SubmissionController extends Controller
         return response()->json($submission);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Submission $submission)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
