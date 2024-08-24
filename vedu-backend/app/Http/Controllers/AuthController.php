@@ -81,7 +81,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => JWTAuth::factory()->getTTL() * 60
+            'expires_in' => JWTAuth::factory()->getTTL() * 1440
         ]);
     }
 
@@ -97,7 +97,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:Instructor,Student',
+            'role' => 'Student',
             'profile_image' => 'nullable|string',
             'country' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
