@@ -58,7 +58,11 @@ class SubmissionGradeController extends Controller
      */
     public function update(UpdateSubmissionGradeRequest $request, SubmissionGrade $submissionGrade)
     {
-        //
+        $validatedData = $request->validated();
+
+        $submissionGrade->update($validatedData);
+
+        return response()->json($submissionGrade);
     }
 
     /**
