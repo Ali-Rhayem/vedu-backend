@@ -11,4 +11,8 @@ class SubmissionGrade extends Model
 
     protected $fillable = ['submission_id', 'grader_id', 'grade', 'feedback'];
 
+    public function submission()
+    {
+        return $this->belongsTo(Submission::class);
+    }
 }
