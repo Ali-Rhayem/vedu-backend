@@ -38,13 +38,6 @@ class SubmissionGradeController extends Controller
         return response()->json($submissionGrade);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SubmissionGrade $submissionGrade)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
