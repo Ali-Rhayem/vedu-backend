@@ -70,6 +70,8 @@ class SubmissionGradeController extends Controller
      */
     public function destroy(SubmissionGrade $submissionGrade)
     {
-        //
+        $submissionGrade->delete();
+
+        return response()->json(null, 204);
     }
 }
