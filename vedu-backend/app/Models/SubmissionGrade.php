@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubmissionGrade extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['submission_id', 'grader_id', 'grade', 'feedback'];
+
 }
