@@ -42,7 +42,7 @@ class SubmissionGradeController extends Controller
      */
     public function show(SubmissionGrade $submissionGrade)
     {
-        //
+        return response()->json($submissionGrade);
     }
 
     /**
