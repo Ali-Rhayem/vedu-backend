@@ -12,6 +12,7 @@ use App\Http\Controllers\CourseInstructorController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\SubmissionGradeController;
 use App\Models\ChromeExtensionSummary;
 
 /*
@@ -70,3 +71,5 @@ Route::prefix('chrome-extension-summary')->group(function () {
     Route::get('/{message}', [ChromeExtensionSummary::class, 'show']);
     Route::delete('/{message}', [ChromeExtensionSummary::class, 'destroy']);
 });
+
+Route::apiResource('submission-grades', SubmissionGradeController::class);
