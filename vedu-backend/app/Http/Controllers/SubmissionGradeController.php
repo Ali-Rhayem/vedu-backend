@@ -30,7 +30,16 @@ class SubmissionGradeController extends Controller
      */
     public function store(StoreSubmissionGradeRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'submission_id' => 'required|exists:submissions,id',
+            'grader_id' => 'required|exists:users,id',
+            'grade' => 'required|numeric',
+            'feedback' => 'nullable|string',
+        ]);
+
+        $grade = SubmissionGrade::create($validatedData);
+
+        return response()->json($grade, 201);
     }
 
     /**
