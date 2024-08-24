@@ -13,7 +13,8 @@ class SubmissionGradeController extends Controller
      */
     public function index()
     {
-        //
+        $grades = SubmissionGrade::all();
+        return response()->json($grades);
     }
 
     /**
