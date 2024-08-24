@@ -22,7 +22,10 @@ class StoreSubmissionGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'submission_id' => 'required|exists:submissions,id',
+            'grader_id' => 'required|exists:users,id',
+            'grade' => 'required|numeric|min:0|max:100',
+            'feedback' => 'nullable|string|max:1000',
         ];
     }
 }
