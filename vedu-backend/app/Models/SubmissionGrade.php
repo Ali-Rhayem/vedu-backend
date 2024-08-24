@@ -15,4 +15,9 @@ class SubmissionGrade extends Model
     {
         return $this->belongsTo(Submission::class);
     }
+
+    public function grader()
+    {
+        return $this->belongsTo(User::class, 'grader_id');
+    }
 }
