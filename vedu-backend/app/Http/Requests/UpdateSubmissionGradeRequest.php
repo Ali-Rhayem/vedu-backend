@@ -22,7 +22,8 @@ class UpdateSubmissionGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'grade' => 'required|numeric|min:0|max:100',
+            'feedback' => 'nullable|string|max:1000',
         ];
     }
 }
