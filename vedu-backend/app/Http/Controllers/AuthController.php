@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
     //
-     /**
+    /**
      * Create a new AuthController instance.
      *
      * @return void
@@ -133,4 +135,26 @@ class AuthController extends Controller
             'expires_in' => JWTAuth::factory()->getTTL() * 60
         ], 201);
     }
+
+    public function getUserCourses()
+    {
+        $user = Auth::user();
+
+        if (!$user instanceof User) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $courseStudentController = new CourseStudentController();
+        $courseInstructorController = new CourseInstructorController();
+
+        $studentCourses = $courseStudentController->getStudentCourses($user->id)->original;
+
+        $instructorCourses = $courseInstructorController->getInstructorCourses($user->id)->original;
+
+        return response()->json([
+            'student_courses' => $studentCourses,
+            'instructor_courses' => $instructorCourses,
+        ]);
+    }
+
 }
