@@ -92,4 +92,15 @@ class CourseStudentController extends Controller
         $courseStudents = CourseStudent::where('course_id', $course_id)->get();
         return response()->json($courseStudents);
     }
+
+    public function getStudentCourses($userId)
+    {
+        $studentCourses = CourseStudent::with('course')
+            ->where('student_id', $userId)
+            ->get()
+            ->pluck('course');
+    
+        return response()->json($studentCourses);
+    }
+    
 }
