@@ -73,3 +73,5 @@ Route::prefix('chrome-extension-summary')->group(function () {
 });
 
 Route::apiResource('submission-grades', SubmissionGradeController::class);
+
+Route::middleware('auth:api')->get('/user/courses', [AuthController::class, 'getUserCourses']);
