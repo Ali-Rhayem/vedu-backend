@@ -16,12 +16,12 @@ class Course extends Model
 
     public function instructors()
     {
-        return $this->belongsToMany(User::class, 'course_instructors');
-    }
+        return $this->belongsToMany(User::class, 'course_instructors', 'course_id', 'instructor_id');
+    }    
 
     public function students()
     {
-        return $this->belongsToMany(User::class, 'course_students');
+        return $this->belongsToMany(User::class, 'course_students', 'course_id', 'student_id');
     }
 
     public function chats()
