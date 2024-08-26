@@ -90,4 +90,14 @@ class CourseInstructorController extends Controller
         $courseInstructors = CourseInstructor::where('course_id', $course_id)->get();
         return response()->json($courseInstructors);
     }
+
+    public function getInstructorCourses($userId)
+    {
+        $instructorCourses = CourseInstructor::with('course') 
+            ->where('instructor_id', $userId)                 
+            ->get()                                           
+            ->pluck('course');                                
+
+        return response()->json($instructorCourses);         
+    }
 }
