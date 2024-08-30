@@ -17,7 +17,7 @@ class TopicController extends Controller
         $topics = Topic::all();
         return response()->json([
             "topics" => $topics
-        ],200);
+        ], 200);
     }
 
     /**
@@ -66,6 +66,11 @@ class TopicController extends Controller
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
         //
+        $topic->update($request->validated());
+        return response()->json([
+            "message" => "topic updated successfully.",
+            "topic" => $topic
+        ], 200);
     }
 
     /**
