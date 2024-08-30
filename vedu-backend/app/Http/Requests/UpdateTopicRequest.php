@@ -30,6 +30,7 @@ class UpdateTopicRequest extends FormRequest
                 'max:255',
                 Rule::unique('topics')->ignore($this->route('topic')),
             ],
+            'course_id' => 'required|exists:courses,id',
         ];
     }
 }
