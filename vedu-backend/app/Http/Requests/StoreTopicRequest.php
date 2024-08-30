@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTopicRequest extends FormRequest
 {
@@ -11,7 +12,6 @@ class StoreTopicRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Allow the request to be authorized
         return true;
     }
 
@@ -23,7 +23,15 @@ class StoreTopicRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:topics,name',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('topics')->where(function ($query) {
+                    return $query->where('course_id', $this->course_id);
+                })
+            ],
+            'course_id' => 'required|exists:courses,id',
         ];
     }
 }
