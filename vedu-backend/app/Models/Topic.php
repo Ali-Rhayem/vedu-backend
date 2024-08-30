@@ -9,10 +9,15 @@ class Topic extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'course_id'];
 
     public function assignments()
     {
         return $this->hasMany(Assignment::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
     }
 }
