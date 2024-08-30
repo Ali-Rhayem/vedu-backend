@@ -34,6 +34,11 @@ class TopicController extends Controller
     public function store(StoreTopicRequest $request)
     {
         //
+        $topic = Topic::create($request->validated());
+        return response()->json([
+            "message" => "topic created successfully.",
+            "topic" => $topic
+        ], 201);
     }
 
     /**
