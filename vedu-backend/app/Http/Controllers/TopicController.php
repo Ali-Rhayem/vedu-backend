@@ -79,5 +79,9 @@ class TopicController extends Controller
     public function destroy(Topic $topic)
     {
         //
+        $topic->delete();
+        return response()->json([
+            "message" => "topic deleted successfully."
+        ], 200);
     }
 }
