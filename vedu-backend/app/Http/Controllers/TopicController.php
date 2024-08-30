@@ -47,6 +47,9 @@ class TopicController extends Controller
     public function show(Topic $topic)
     {
         //
+        return response()->json([
+            "topic" => $topic
+        ], 200);
     }
 
     /**
