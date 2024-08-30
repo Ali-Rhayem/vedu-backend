@@ -88,4 +88,16 @@ class AssignmentController extends Controller
             "assignments" => $assignments
         ], 200);
     }
+
+    public function getAssignmentsByTopic($course_id)
+    {
+        $assignments = Assignment::where('course_id', $course_id)
+            ->with('topic')
+            ->get()
+            ->groupBy('topic.name');
+
+        return response()->json([
+            "topics" => $assignments
+        ], 200);
+    }
 }
