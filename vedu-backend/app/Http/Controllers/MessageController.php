@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatMessageSent;
 use App\Events\MessageSent;
 use App\Models\Message;
 use App\Http\Requests\StoreMessageRequest;
@@ -31,7 +32,7 @@ class MessageController extends Controller
             'message' => $validated['message'],
         ]);
 
-        broadcast(new MessageSent($message))->toOthers();
+        broadcast(new ChatMessageSent($message))->toOthers();
 
         return response()->json($message, 201);
     }
