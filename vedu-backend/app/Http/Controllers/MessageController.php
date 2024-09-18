@@ -10,18 +10,12 @@ use App\Http\Requests\UpdateMessageRequest;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index($chat_id)
     {
         $messages = Message::where('chat_id', $chat_id)->get();
         return response()->json($messages);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreMessageRequest $request)
     {
         $validated = $request->validated();
@@ -37,18 +31,13 @@ class MessageController extends Controller
         return response()->json($message, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Message $message)
     {
         return response()->json($message);
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateMessageRequest $request, Message $message)
     {
         $validated = $request->validated();
@@ -56,9 +45,6 @@ class MessageController extends Controller
         return response()->json($message);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Message $message)
     {
         $message->delete();
