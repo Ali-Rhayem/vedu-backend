@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AssignmentDocumentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $documents = AssignmentDocument::all();
@@ -19,9 +16,6 @@ class AssignmentDocumentController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAssignmentDocumentRequest $request)
     {
         $validated = $request->validated();
@@ -40,18 +34,12 @@ class AssignmentDocumentController extends Controller
         return response()->json(['error' => 'No file uploaded'], 400);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(AssignmentDocument $assignmentDocument)
     {
         return response()->json($assignmentDocument);
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateAssignmentDocumentRequest $request, AssignmentDocument $assignmentDocument)
     {
         if ($request->hasFile('file')) {
@@ -71,9 +59,6 @@ class AssignmentDocumentController extends Controller
         return response()->json(['error' => 'No file uploaded'], 400);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(AssignmentDocument $assignmentDocument)
     {
         Storage::disk('public')->delete($assignmentDocument->file_url);
