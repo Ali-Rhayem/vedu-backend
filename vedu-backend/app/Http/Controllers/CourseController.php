@@ -9,9 +9,6 @@ use GuzzleHttp\Psr7\Request;
 
 class CourseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $courses = Course::all();
@@ -20,17 +17,6 @@ class CourseController extends Controller
         ],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCourseRequest $request)
     {
         $course = Course::create($request->validated());
@@ -39,43 +25,23 @@ class CourseController extends Controller
         ],201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Course $course)
     {
-        //
         return response()->json([
             "course" => $course
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Course $course)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
         $course->update($request->validated());
         return response()->json([
             "course" => $course
         ],200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Course $course)
     {
-        //
         $course->delete();
         return response()->json(null, 204);
     }
