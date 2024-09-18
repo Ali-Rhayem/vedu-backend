@@ -6,10 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "get-stream/stream": "^7.1",
+        "get-stream/stream-chat": "^3.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "openai-php/client": "^0.10.1",
+        "pusher/pusher-php-server": "^7.2",
         "tymon/jwt-auth": "^2.1"
     },
     "require-dev": {

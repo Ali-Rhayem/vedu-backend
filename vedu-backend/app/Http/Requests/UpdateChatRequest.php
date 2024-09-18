@@ -11,7 +11,7 @@ class UpdateChatRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateChatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'course_id' => 'nullable|exists:courses,id',
+            'sender_id' => 'nullable|exists:users,id',
+            'receiver_id' => 'nullable|exists:users,id',
         ];
     }
 }

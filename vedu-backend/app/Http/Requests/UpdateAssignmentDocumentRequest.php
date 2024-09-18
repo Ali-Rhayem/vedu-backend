@@ -11,7 +11,7 @@ class UpdateAssignmentDocumentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateAssignmentDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            'assignment_id' => 'required|exists:assignments,id',
+            'file' => 'required|file|mimes:pdf,doc,docx,txt,png,jpg,jpeg,mp4,mkv,avi',
+        ];   
     }
 }

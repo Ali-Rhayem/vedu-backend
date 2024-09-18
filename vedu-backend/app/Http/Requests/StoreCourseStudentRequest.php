@@ -23,6 +23,8 @@ class StoreCourseStudentRequest extends FormRequest
     {
         return [
             //
+            'course_id' => 'required|exists:courses,id',
+            'student_id' => 'required|exists:users,id',
         ];
     }
 }

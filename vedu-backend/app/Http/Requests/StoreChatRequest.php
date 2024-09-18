@@ -22,7 +22,9 @@ class StoreChatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'course_id' => 'nullable|exists:courses,id',
+            'sender_id' => 'required|exists:users,id',
+            'receiver_id' => 'nullable|exists:users,id',
         ];
     }
 }

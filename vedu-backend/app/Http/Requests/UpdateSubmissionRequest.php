@@ -11,7 +11,7 @@ class UpdateSubmissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateSubmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'assignment_id' => 'required|exists:assignments,id',
+            'student_id' => 'required|exists:users,id',
+            'submission_text' => 'nullable|string',
+            'file' => 'nullable|file|mimes:pdf,docx,txt,jpg,jpeg,png,mp4,mov,avi',
+            'submitted_at' => 'nullable|date',
         ];
     }
 }

@@ -22,7 +22,11 @@ class StoreSubmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'assignment_id' => 'required|exists:assignments,id',
+            'student_id' => 'required|exists:users,id',
+            'submission_text' => 'nullable|string',
+            'file' => 'nullable|file|mimes:pdf,docx,txt,jpg,jpeg,png,mp4,mov,avi', // Allow PDF, DOCX, TXT, Images (JPG, JPEG, PNG), Videos (MP4, MOV, AVI)
+            'submitted_at' => 'nullable|date',
         ];
     }
 }

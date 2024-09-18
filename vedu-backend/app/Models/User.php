@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,11 +21,11 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'country',       
-        'city',          
-        'code',          
-        'phone_number',  
-        'bio',           
+        'country',
+        'city',
+        'code',
+        'phone_number',
+        'bio',
     ];
 
     /**
@@ -59,12 +60,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function instructorCourses()
     {
-        return $this->belongsToMany(Course::class, 'course_instructors');
+        return $this->belongsToMany(Course::class, 'course_instructors', 'instructor_id', 'course_id');
     }
 
     public function studentCourses()
     {
-        return $this->belongsToMany(Course::class, 'course_students');
+        return $this->belongsToMany(Course::class, 'course_students', 'student_id', 'course_id');
     }
 
     public function chats()
@@ -77,7 +78,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Submission::class, 'student_id');
     }
 
-     /**
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed

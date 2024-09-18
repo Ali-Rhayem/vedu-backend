@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use App\Models\Chat;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,16 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+    // return (int) $user->id === (int) $id;
+    return true;
+});
+
+Broadcast::channel('chat.{chat_id}', function ($user, $chat_id) {
+    // return Chat::where('id', $chat_id)
+    //     ->where(function ($query) use ($user) {
+    //         $query->where('sender_id', $user->id)
+    //             ->orWhere('receiver_id', $user->id);
+    //     })
+    //     ->exists();
+    return true;
 });
