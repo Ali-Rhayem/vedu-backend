@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use App\Http\Requests\StoreAssignmentRequest;
 use App\Http\Requests\UpdateAssignmentRequest;
+use App\Models\Topic;
 
 class AssignmentController extends Controller
 {
@@ -13,19 +14,10 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-        //
-        $assignment = Assignment::all();
+        $assignments = Assignment::all();
         return response()->json([
-            "courses" => $assignment
-        ],200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+            "assignments" => $assignments
+        ], 200);
     }
 
     /**
@@ -33,7 +25,9 @@ class AssignmentController extends Controller
      */
     public function store(StoreAssignmentRequest $request)
     {
+        // Create the assignment with the validated data, including max_grade
         $assignment = Assignment::create($request->validated());
+
         return response()->json([
             "message" => "Assignment created successfully.",
             "assignment" => $assignment
@@ -45,17 +39,12 @@ class AssignmentController extends Controller
      */
     public function show(Assignment $assignment)
     {
+        // Load related documents and submissions if necessary
+        $assignment->load('documents', 'submissions');
+
         return response()->json([
             "assignment" => $assignment
         ], 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Assignment $assignment)
-    {
-        //
     }
 
     /**
@@ -64,11 +53,29 @@ class AssignmentController extends Controller
     public function update(UpdateAssignmentRequest $request, Assignment $assignment)
     {
         $assignment->update($request->validated());
+
+        if ($request->has('topic_id') && $request->topic_id !== $assignment->topic_id) {
+            $assignment->topic_id = $request->input('topic_id');
+            $assignment->save();
+        }
+
+        if ($request->hasFile('documents')) {
+            $assignment->documents()->delete();
+
+            foreach ($request->file('documents') as $document) {
+                $assignment->documents()->create([
+                    'file_path' => $document->store('assignment_documents', 'public'),
+                    'file_name' => $document->getClientOriginalName(),
+                ]);
+            }
+        }
+
         return response()->json([
             "message" => "Assignment updated successfully.",
-            "assignment" => $assignment
+            "assignment" => $assignment->load('documents')
         ], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -91,13 +98,28 @@ class AssignmentController extends Controller
 
     public function getAssignmentsByTopic($course_id)
     {
-        $assignments = Assignment::where('course_id', $course_id)
-            ->with('topic')
-            ->get()
-            ->groupBy('topic.name');
+        $topics = Topic::where('course_id', $course_id)->get();
+
+        $groupedAssignments = [];
+
+        foreach ($topics as $topic) {
+            $groupedAssignments[$topic->name] = [
+                'id' => $topic->id,
+                'assignments' => [],
+            ];
+
+            Assignment::where('topic_id', $topic->id)
+                ->with(['submissions.student', 'documents'])
+                ->chunk(100, function ($assignments) use (&$groupedAssignments, $topic) {
+                    $groupedAssignments[$topic->name]['assignments'] = array_merge(
+                        $groupedAssignments[$topic->name]['assignments'],
+                        $assignments->toArray()
+                    );
+                });
+        }
 
         return response()->json([
-            "topics" => $assignments
+            "topics" => $groupedAssignments
         ], 200);
     }
 }
