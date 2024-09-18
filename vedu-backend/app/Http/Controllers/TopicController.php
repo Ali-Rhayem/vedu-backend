@@ -84,4 +84,13 @@ class TopicController extends Controller
             "message" => "topic deleted successfully."
         ], 200);
     }
+
+    public function getTopicsByClass($class_id)
+    {
+        $topics = Topic::where('course_id', $class_id)->get();
+
+        return response()->json([
+            "topics" => $topics
+        ], 200);
+    }
 }
