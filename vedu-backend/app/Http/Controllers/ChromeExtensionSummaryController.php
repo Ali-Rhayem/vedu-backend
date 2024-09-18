@@ -25,45 +25,55 @@ class ChromeExtensionSummaryController extends Controller
     {
         $response = $messageController->index($chat->id);
         $messages = json_decode($response->getContent(), true);
-
+    
         $chatContent = implode("\n", array_column($messages, 'message'));
-
-        $openAIKey = env('OPENAI_API_KEY');
-        $client = new \GuzzleHttp\Client();
-
-        $response = $client->post('https://api.openai.com/v1/chat/completions', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $openAIKey,
-                'Content-Type' => 'application/json',
-            ],
-            'json' => [
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    ['role' => 'system', 'content' => 'You are a helpful assistant that summarizes chat conversations.'],
-                    ['role' => 'user', 'content' => "Summarize this chat:\n" . $chatContent],
-                ],
-                'max_tokens' => 150,
-            ],
-        ]);
-
-        $responseBody = json_decode($response->getBody(), true);
-        $summary = $responseBody['choices'][0]['message']['content'];
-
-        $summaryRecord = ChromeExtensionSummary::where('chat_id', $chat->id)->first();
-
-        if ($summaryRecord) {
-            $summaryRecord->update(['summary' => $summary]);
-        } else {
-            $summaryRecord = ChromeExtensionSummary::create([
-                'chat_id' => $chat->id,
-                'summary' => $summary,
-            ]);
+    
+        $openAIKey = config('services.openai.key');
+        
+        if (!$openAIKey) {
+            return response()->json(['error' => 'OpenAI API key not found'], 500);
         }
-
-        return response()->json([
-            'summary' => $summaryRecord,
-        ]);
+    
+        $client = new \GuzzleHttp\Client();
+    
+        try {
+            $response = $client->post('https://api.openai.com/v1/chat/completions', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $openAIKey,
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'model' => 'gpt-3.5-turbo',
+                    'messages' => [
+                        ['role' => 'system', 'content' => 'You are a helpful assistant that summarizes chat conversations.'],
+                        ['role' => 'user', 'content' => "Summarize this chat:\n" . $chatContent],
+                    ],
+                    'max_tokens' => 150,
+                ],
+            ]);
+    
+            $responseBody = json_decode($response->getBody(), true);
+            $summary = $responseBody['choices'][0]['message']['content'];
+    
+            $summaryRecord = ChromeExtensionSummary::where('chat_id', $chat->id)->first();
+    
+            if ($summaryRecord) {
+                $summaryRecord->update(['summary' => $summary]);
+            } else {
+                $summaryRecord = ChromeExtensionSummary::create([
+                    'chat_id' => $chat->id,
+                    'summary' => $summary,
+                ]);
+            }
+    
+            return response()->json([
+                'summary' => $summaryRecord,
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return response()->json(['error' => 'Failed to generate summary'], 500);
+        }
     }
+    
 
 
     /**
