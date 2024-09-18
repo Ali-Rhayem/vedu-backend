@@ -6,6 +6,7 @@ use App\Events\ChatMessageSent;
 use App\Models\Chat;
 use App\Http\Requests\StoreChatRequest;
 use App\Http\Requests\UpdateChatRequest;
+use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
@@ -33,8 +34,6 @@ class ChatController extends Controller
         ]);
 
         $chat = Chat::create($validated);
-
-        broadcast(new ChatMessageSent($chat))->toOthers();
 
         return response()->json($chat, 201);
     }
@@ -74,5 +73,24 @@ class ChatController extends Controller
         return response()->json([
             "messages" => $chat->messages
         ]);
+    }
+
+    public function checkExistingChat(Request $request)
+    {
+        $chat = Chat::where(function ($query) use ($request) {
+            $query->where('sender_id', $request->sender_id)
+                ->where('receiver_id', $request->receiver_id)
+                ->where('course_id', $request->course_id);
+        })->orWhere(function ($query) use ($request) {
+            $query->where('sender_id', $request->receiver_id)
+                ->where('receiver_id', $request->sender_id)
+                ->where('course_id', $request->course_id);
+        })->first();
+
+        if ($chat) {
+            return response()->json(['chat_id' => $chat->id]);
+        } else {
+            return response()->json(['chat_id' => null]);
+        }
     }
 }
