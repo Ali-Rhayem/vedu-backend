@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->dateTime('due_date');
+            $table->integer('grade')->default(100);
             $table->timestamps();
         });
     }
