@@ -10,9 +10,6 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $chats = Chat::all();
@@ -22,9 +19,6 @@ class ChatController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreChatRequest $request)
     {
         $validated = $request->validate([
@@ -37,9 +31,7 @@ class ChatController extends Controller
 
         return response()->json($chat, 201);
     }
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Chat $chat)
     {
         return response()->json([
@@ -48,9 +40,6 @@ class ChatController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateChatRequest $request, Chat $chat)
     {
         $chat->update($request->validated());
@@ -59,9 +48,6 @@ class ChatController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Chat $chat)
     {
         $chat->delete();
