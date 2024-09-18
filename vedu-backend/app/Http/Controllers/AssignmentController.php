@@ -9,9 +9,6 @@ use App\Models\Topic;
 
 class AssignmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $assignments = Assignment::all();
@@ -20,12 +17,8 @@ class AssignmentController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAssignmentRequest $request)
     {
-        // Create the assignment with the validated data, including max_grade
         $assignment = Assignment::create($request->validated());
 
         return response()->json([
@@ -34,12 +27,8 @@ class AssignmentController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Assignment $assignment)
     {
-        // Load related documents and submissions if necessary
         $assignment->load('documents', 'submissions');
 
         return response()->json([
@@ -47,9 +36,6 @@ class AssignmentController extends Controller
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateAssignmentRequest $request, Assignment $assignment)
     {
         $assignment->update($request->validated());
@@ -77,9 +63,6 @@ class AssignmentController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Assignment $assignment)
     {
         $assignment->delete();
