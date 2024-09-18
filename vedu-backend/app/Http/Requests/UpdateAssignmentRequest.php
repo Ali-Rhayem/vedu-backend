@@ -27,6 +27,7 @@ class UpdateAssignmentRequest extends FormRequest
             'description' => ['sometimes', 'string'],
             'due_date' => ['sometimes', 'date', 'after_or_equal:today'],
             'topic_id' => ['nullable', 'exists:topics,id'],
+            'grade' => ['nullable', 'integer', 'min:1'],
         ];
     }
 }

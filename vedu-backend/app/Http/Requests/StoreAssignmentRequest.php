@@ -27,6 +27,7 @@ class StoreAssignmentRequest extends FormRequest
             'description' => ['required', 'string'],
             'due_date' => ['required', 'date', 'after_or_equal:today'],
             'topic_id' => ['nullable', 'exists:topics,id'],
+            'grade' => ['nullable', 'integer', 'min:1'], 
         ];
     }
 }
