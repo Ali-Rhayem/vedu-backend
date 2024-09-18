@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Assignment extends Model
 {
     use HasFactory;
-    protected $fillable = ['course_id', 'title', 'description', 'due_date', 'topic_id'];
+
+    protected $fillable = ['course_id', 'title', 'description', 'due_date', 'topic_id', 'grade'];
 
     public function course()
     {
@@ -19,7 +20,6 @@ class Assignment extends Model
     {
         return $this->hasMany(AssignmentDocument::class);
     }
-
 
     public function submissions()
     {
