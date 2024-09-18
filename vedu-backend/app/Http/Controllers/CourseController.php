@@ -79,4 +79,20 @@ class CourseController extends Controller
         $course->delete();
         return response()->json(null, 204);
     }
+
+    public function getUsers($course_id)
+    {
+        $course = Course::findOrFail($course_id);
+
+        $instructors = $course->instructors()->get();
+        $students = $course->students()->get();
+
+        $users = $instructors->merge($students);
+
+        return response()->json([
+            "course_id" => $course_id,
+            "users" => $users
+        ], 200);
+    }
+    
 }
