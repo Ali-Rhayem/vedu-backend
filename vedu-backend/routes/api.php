@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\CodeUpdated;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AssignmentDocumentController;
 use Illuminate\Http\Request;
@@ -13,7 +14,10 @@ use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionGradeController;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\VideoController;
 use App\Models\ChromeExtensionSummary;
+use Illuminate\Support\Facades\Broadcast;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +45,14 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
 Route::apiResource('courses', CourseController::class);
 
 Route::apiResource('assignments', AssignmentController::class);
+Route::get('assignments/course/{course_id}', [AssignmentController::class, 'getCourseAssignments']);
 
 Route::apiResource('assignment-documents', AssignmentDocumentController::class);
 
 Route::apiResource('course-instructor', CourseInstructorController::class);
+
+Route::apiResource('topic', TopicController::class);
+Route::get('assignments/course/{course_id}/by-topic', [AssignmentController::class, 'getAssignmentsByTopic']);
 
 Route::apiResource('course-student', CourseStudentController::class);
 
@@ -64,7 +72,7 @@ Route::prefix('messages')->group(function () {
     Route::delete('/{message}', [MessageController::class, 'destroy']);
 });
 
-Route::post('/chats/{chat}/summary', [ChromeExtensionSummaryController::class, 'generateSummary']);
+Route::get('/chats/{chat}/summary', [ChromeExtensionSummaryController::class, 'generateSummary']);
 
 Route::prefix('chrome-extension-summary')->group(function () {
     Route::get('/{chat_id}', [ChromeExtensionSummary::class, 'index']);
@@ -75,3 +83,37 @@ Route::prefix('chrome-extension-summary')->group(function () {
 Route::apiResource('submission-grades', SubmissionGradeController::class);
 
 Route::middleware('auth:api')->get('/user/courses', [AuthController::class, 'getUserCourses']);
+
+Route::middleware('auth:api')->group(function () {
+    Route::put('user/update-personal-info', [AuthController::class, 'updatePersonalInfo']);
+    Route::post('user/update-profile', [AuthController::class, 'updateProfile']);
+    Route::put('user/update-address', [AuthController::class, 'updateAddress']);
+});
+
+Route::get('student/{userId}/courses', [CourseStudentController::class, 'getStudentCourses']);
+
+Route::get('/courses/{courseId}/is-instructor/{userId}', [CourseInstructorController::class, 'isUserInstructor']);
+
+Route::get('/assignments/{assignmentId}/submissions', [SubmissionController::class, 'getSubmissionsByAssignment']);
+
+Route::get('/topic/class/{class_id}', [TopicController::class, 'getTopicsByClass']);
+
+Route::post('/assignments/{assignment}/submissions/{submission}/grade', [SubmissionController::class, 'gradeSubmission']);
+
+Route::post('/courses/join', [CourseStudentController::class, 'joinClass']);
+
+Route::post('/get-user-id', [AuthController::class, 'getUserIdByEmail']);
+
+Route::get('course/{course_id}/users', [CourseController::class, 'getUsers']);
+
+Broadcast::routes(['prefix' => 'api', 'middleware' => ['auth:api']]);
+Route::middleware('auth:api')->post('/broadcasting/auth', function (Request $request) {
+    return Broadcast::auth($request);
+});
+
+
+
+
+Route::post('/chats/check-existing', [ChatController::class, 'checkExistingChat']);
+
+Route::get('/submissions/{submissionId}/download', [SubmissionController::class, 'downloadFile']);
