@@ -2,22 +2,20 @@
 
 namespace Database\Factories;
 
+use App\Models\Chat;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Message>
- */
 class MessageFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = \App\Models\Message::class;
+
     public function definition(): array
     {
         return [
-            //
+            'chat_id' => Chat::factory(),    // Foreign key to chats
+            'sender_id' => User::factory(),  // Foreign key to users
+            'message' => $this->faker->sentence,  // Generating a fake message
         ];
     }
 }
