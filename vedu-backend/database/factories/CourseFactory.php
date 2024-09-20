@@ -2,22 +2,21 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Course>
- */
 class CourseFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Course::class;
+
+    public function definition()
     {
         return [
-            //
+            'name' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'class_code' => strtoupper($this->faker->lexify('??????')),
+            'owner_id' => User::factory(),
         ];
     }
 }
