@@ -11,6 +11,7 @@ use App\Http\Controllers\ChromeExtensionSummaryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseInstructorController;
 use App\Http\Controllers\CourseStudentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionGradeController;
@@ -110,3 +111,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('user/update-profile', [AuthController::class, 'updateProfile']);
     Route::put('user/update-address', [AuthController::class, 'updateAddress']);
 });
+
+Route::get('/users', [AuthController::class, 'getAllUsers']);
+Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/dashboard-stats', [DashboardController::class, 'getDashboardStats']);
