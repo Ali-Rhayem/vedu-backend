@@ -11,11 +11,29 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::all();
+        $courses = Course::with('owner')
+            ->withCount(['students', 'instructors']) // Count both students and instructors
+            ->get();
+
+        // Format the response
+        $formattedCourses = $courses->map(function ($course) {
+            return [
+                'id' => $course->id,
+                'name' => $course->name,
+                'description' => $course->description,
+                'owner' => $course->owner->name,  // Get the owner's name
+                'students_count' => $course->students_count,  // Get the number of students
+                'instructors_count' => $course->instructors_count,  // Get the number of instructors
+                'created_at' => $course->created_at,
+            ];
+        });
+
         return response()->json([
-            "courses" => $courses
-        ],200);
+            "courses" => $formattedCourses
+        ], 200);
     }
+
+
 
     public function store(StoreCourseRequest $request)
     {
@@ -60,5 +78,5 @@ class CourseController extends Controller
             "users" => $users
         ], 200);
     }
-    
+
 }
