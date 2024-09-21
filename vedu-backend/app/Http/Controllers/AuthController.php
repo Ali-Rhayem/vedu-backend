@@ -28,15 +28,15 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user = auth()->user(); 
+        $user = auth()->user();
 
         $streamToken = $this->streamService->generateToken($user->id);
 
         return response()->json([
-            'access_token' => $token, 
+            'access_token' => $token,
             'token_type' => 'bearer',
-            'user' => $user, 
-            'stream_token' => $streamToken, 
+            'user' => $user,
+            'stream_token' => $streamToken,
         ]);
     }
 
@@ -261,5 +261,11 @@ class AuthController extends Controller
         }
 
         return response()->json(['user_id' => $user->id], 200);
+    }
+
+    public function getAllUsers()
+    {
+        $users = User::all(); // Fetch all users from the database
+        return response()->json($users);
     }
 }
